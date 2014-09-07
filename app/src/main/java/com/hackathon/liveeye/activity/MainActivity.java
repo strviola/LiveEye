@@ -3,16 +3,15 @@ package com.hackathon.liveeye.activity;
 import com.hackathon.liveeye.R;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
-
+import android.widget.Button;
 
 
 public class MainActivity extends Activity {
@@ -51,7 +50,7 @@ public class MainActivity extends Activity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends Fragment implements View.OnClickListener {
 
         public PlaceholderFragment() {
         }
@@ -60,7 +59,22 @@ public class MainActivity extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            Button start = (Button) rootView.findViewById(R.id.start);
+            start.setOnClickListener(this);
+
             return rootView;
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.start:
+                    startActivity(new Intent(getActivity(), TrackingActivity.class));
+                    break;
+                default:
+                    startActivity(new Intent(getActivity(), TrackingActivity.class));
+                    break;
+            }
         }
     }
 }

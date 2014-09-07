@@ -4,5 +4,7 @@
     <string name="app_name">LiveEye</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_tracking">TrackingActivity</string>
+    <string name="local_service_started">Location tracking</string>
 
 </resources>
