@@ -19,6 +19,17 @@ android {
     }
 }
 
+repositories {
+    jcenter()
+    maven {
+        url "http://files.couchbase.com/maven2/"
+    }
+    mavenLocal()
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    // hack to add .so objects
+    compile fileTree(dir: 'libs', include: 'td_collator_so.jar')
+    compile 'com.couchbase.cblite:CBLite:1.0.0-beta2'
 }
