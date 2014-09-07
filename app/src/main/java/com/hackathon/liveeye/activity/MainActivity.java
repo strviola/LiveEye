@@ -1,4 +1,6 @@
-package com.hackathon.liveeye;
+package com.hackathon.liveeye.activity;
+
+import com.hackathon.liveeye.R;
 
 import android.app.Activity;
 import android.app.ActionBar;
