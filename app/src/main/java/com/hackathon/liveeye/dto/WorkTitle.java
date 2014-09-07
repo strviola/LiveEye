@@ -3,22 +3,26 @@ package com.hackathon.liveeye.dto;
 import com.hackathon.liveeye.activity.WorksListActivity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by SuzukiRyota on 2014/09/07.
  */
 public class WorkTitle {
     public String workId;
-    public Calendar uploadDate;
+    public String uploadDate;
+    public List<String> frameId;
 
-    public WorkTitle(String workId, Calendar uploadDate) {
+    public WorkTitle(String workId, String uploadDate) {
         this.workId = workId;
         this.uploadDate = uploadDate;
+        this.frameId = new ArrayList<String>();
     }
 
-    public String getDateString() {
-        SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        return f.format(this.uploadDate);
+    public WorkTitle addFrameId(String frameId) {
+        this.frameId.add(frameId);
+        return this;
     }
 }

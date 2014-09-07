@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.hackathon.liveeye.R;
 import com.hackathon.liveeye.dto.WorkTitle;
@@ -26,20 +29,35 @@ public class WorksListActivity extends Activity {
         ListView worksList = (ListView) findViewById(R.id.worksList);
 
         // get works data to print
-        List<WorkTitle> workTitles = GetWorks.getWorksFromDB();
+        final List<WorkTitle> workTitles = GetWorks.getWorksFromDB();
         Log.d(getClass().getSimpleName(), workTitles.toString());
 
-        // set works view
+        // show works date-time
         List<String> workDateTimes = new ArrayList<String>();
         for (WorkTitle workTitle : workTitles) {
-            workDateTimes.add(workTitle.getDateString());
+            workDateTimes.add(workTitle.uploadDate);
         }
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_expandable_list_item_1,
                 workDateTimes);
         worksList.setAdapter(adapter);
+
+        // set listener on item selected
+        worksList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // TODO: フレーム詳細画面に遷移
+                String msg = "Selected Item: ";
+                msg += workTitles.get(i).uploadDate + "¥n¥n";
+                msg += "frame ID:¥n";
+                for (String fid : workTitles.get(i).frameId) {
+                    msg += fid + "¥n";
+                }
+
+                Log.d("ItemSelected", msg);
+            }
+        });
     }
 
 
