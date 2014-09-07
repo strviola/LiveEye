@@ -1,16 +1,12 @@
 package com.hackathon.liveeye.io;
 
 import android.content.Context;
+import android.util.Log;
 
-import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Database;
-import com.couchbase.lite.Manager;
 import com.hackathon.liveeye.dto.WorkTitle;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +15,7 @@ import java.util.Map;
  */
 public class GetWorks {
     public static List<WorkTitle> getWorksFromDB(Context ctx) {
-        Map<String, Object> dbMap = connectDB(ctx);
+        Map<String, Object> dbMap = Common.connectDB(ctx, "work");
         return mapToWork(dbMap, ctx);
     }
 
@@ -32,40 +28,15 @@ public class GetWorks {
                 new WorkTitle("2", yesterday).addFrameId("2001").addFrameId("2002"));
     }
 
-    private static Map<String, Object> connectDB(Context ctx) {
-        // get db manager
-        Manager dbManager;
-        try {
-            dbManager = new Manager(ctx.getFilesDir(), Manager.DEFAULT_OPTIONS);
-        } catch (IOException e) {
-            e.printStackTrace();
+    private static List<WorkTitle> mapToWork(Map<String, Object> map, Context ctx) {
+        Map<String, Object> fromDB = Common.connectDB(ctx, "work");
+        if (fromDB == null) {
             return null;
         }
-
-        // create database
-        Database db = null;
-        try {
-            db = dbManager.getDatabase("work");
-        } catch (CouchbaseLiteException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            return db.getAllDocs(null);
-
-        } catch (CouchbaseLiteException e) {
-            e.printStackTrace();
-        }
-
-        // failed to connect
-        return null;
-    }
-
-    private static List<WorkTitle> mapToWork(Map<String, Object> map, Context ctx) {
-        Map<String, Object> fromDB = connectDB(ctx);
         List<WorkTitle> works = new ArrayList<WorkTitle>();
 
         for (Map.Entry<String, Object> kv : fromDB.entrySet()) {
+            Log.i("GetWorks", kv.getValue().toString());
             String posted = (String) kv.getValue();
             works.add(new WorkTitle(kv.getKey(), (String) kv.getValue()));
         }

@@ -30,7 +30,9 @@ public class WorksListActivity extends Activity {
         ListView worksList = (ListView) findViewById(R.id.worksList);
 
         // get works data to print
+//        final List<WorkTitle> workTitles = GetWorks.getWorksFromDB(getApplicationContext());
         final List<WorkTitle> workTitles = GetWorks.getWorksFromDB();
+
         Log.d(getClass().getSimpleName(), workTitles.toString());
 
         // show works date-time
@@ -50,10 +52,10 @@ public class WorksListActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // TODO: フレーム詳細画面に遷移
                 String msg = "Selected Item: ";
-                msg += workTitles.get(i).uploadDate + "¥n¥n";
-                msg += "frame ID:¥n";
+                msg += workTitles.get(i).uploadDate + " / ";
+                msg += "frame ID: ";
                 for (String fid : workTitles.get(i).frameId) {
-                    msg += fid + "¥n";
+                    msg += fid + ", ";
                 }
 
                 Log.d("ItemSelected", msg);

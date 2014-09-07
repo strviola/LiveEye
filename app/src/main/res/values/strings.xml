@@ -10,5 +10,6 @@
     <string name="title_works">Works</string>
     <string name="title_activity_work_frame">WorkFrameActivity</string>
     <string name="title_maps">Map</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
