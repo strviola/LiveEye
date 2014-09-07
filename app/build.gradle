@@ -33,3 +33,11 @@ dependencies {
     compile fileTree(dir: 'libs', include: 'td_collator_so.jar')
     compile 'com.couchbase.cblite:CBLite:1.0.0-beta2'
 }
+
+android {
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+}
