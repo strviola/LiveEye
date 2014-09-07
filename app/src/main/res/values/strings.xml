@@ -6,5 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_works_list">WorksListActivity</string>
     <string name="title_works">Works</string>
+    <string name="title_activity_work_frame">WorkFrameActivity</string>
+    <string name="title_maps">Map</string>
 
 </resources>

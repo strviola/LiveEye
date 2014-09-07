@@ -1,6 +1,7 @@
 package com.hackathon.liveeye.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -56,6 +57,10 @@ public class WorksListActivity extends Activity {
                 }
 
                 Log.d("ItemSelected", msg);
+
+                Intent intent = new Intent(WorksListActivity.this, WorkFrameActivity.class);
+                intent.putExtra("savedWork", workTitles.get(i));
+                startActivity(intent);
             }
         });
     }
