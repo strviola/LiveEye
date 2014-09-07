@@ -8,8 +8,21 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.couchbase.lite.CouchbaseLiteException;
+import com.couchbase.lite.Database;
+import com.couchbase.lite.LiveQuery;
+import com.couchbase.lite.Query;
+import com.couchbase.lite.QueryEnumerator;
+import com.couchbase.lite.QueryRow;
 import com.hackathon.liveeye.R;
+import com.hackathon.liveeye.dto.Location;
 import com.hackathon.liveeye.dto.WorkTitle;
+import com.hackathon.liveeye.io.Common;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class WorkFrameActivity extends Activity {
     private final String tag = getClass().getSimpleName();
@@ -22,6 +35,22 @@ public class WorkFrameActivity extends Activity {
         // get data from previous activity
         WorkTitle work = (WorkTitle) getIntent().getSerializableExtra("savedWork");
         Log.d(tag, work.toString());
+
+        List<String> frameInfos = new ArrayList<String>();
+        Database locations = Common.getDatabase(getApplicationContext(), "frame");
+        Database works = Common.getDatabase(getApplicationContext(), "work");
+
+        Query q = locations.createAllDocumentsQuery();
+        try {
+            QueryEnumerator qe = q.run();
+            for (Iterator<QueryRow> row = qe; row.hasNext();) {
+                QueryRow r = row.next();
+                Log.i("WorkFrameActivity", r.getDocumentId());
+            }
+        } catch (CouchbaseLiteException e) {
+            e.printStackTrace();
+        }
+
 
         // TODO: あとでちゃんと実装したら消す
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(

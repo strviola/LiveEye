@@ -14,6 +14,17 @@ import java.util.Map;
  */
 public class Common {
     public static Map<String, Object> connectDB(Context ctx, String dbName) {
+        Database db = getDatabase(ctx, dbName);
+        try {
+            return db.getAllDocs(null);
+
+        } catch (CouchbaseLiteException e) {
+            e.printStackTrace();
+        }
+    return null;
+    }
+
+    public static Database getDatabase(Context ctx, String dbName) {
         // get db manager
         Manager dbManager;
         try {
@@ -27,13 +38,7 @@ public class Common {
         Database db = null;
         try {
             db = dbManager.getDatabase(dbName);
-        } catch (CouchbaseLiteException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            return db.getAllDocs(null);
-
+            return db;
         } catch (CouchbaseLiteException e) {
             e.printStackTrace();
         }

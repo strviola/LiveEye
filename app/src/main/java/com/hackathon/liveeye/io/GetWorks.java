@@ -35,11 +35,16 @@ public class GetWorks {
         }
         List<WorkTitle> works = new ArrayList<WorkTitle>();
 
-        for (Map.Entry<String, Object> kv : fromDB.entrySet()) {
-            Log.i("GetWorks", kv.getValue().toString());
-            String posted = (String) kv.getValue();
-            works.add(new WorkTitle(kv.getKey(), (String) kv.getValue()));
+        try {
+            for (Map.Entry<String, Object> kv : fromDB.entrySet()) {
+                Log.i("GetWorks", kv.getValue().toString());
+                WorkTitle workTitle = (WorkTitle) kv.getValue();
+                works.add(workTitle);
+            }
+            return works;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
         }
-        return works;
+        return null;
     }
 }

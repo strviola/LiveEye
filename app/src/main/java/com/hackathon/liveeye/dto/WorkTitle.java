@@ -26,4 +26,9 @@ public class WorkTitle implements Serializable {
         this.frameId.add(frameId);
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Work at " + uploadDate;
+    }
 }
